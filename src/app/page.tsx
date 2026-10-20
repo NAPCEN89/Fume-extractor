@@ -90,14 +90,14 @@ export default function NapcenLandingPage() {
     setIsProductModalOpen(true);
   };
 
-  const handleDiscussFromDetails = (productTitle: string, appName: string) => {
-    setFormData((prev) => ({ ...prev, application: appName, collector: productTitle }));
+  const handleDiscussFromDetails = (productTitle: string) => {
+    setFormData((prev) => ({ ...prev, collector: productTitle }));
     const formEl = document.getElementById("contact");
     if (formEl) {
       formEl.scrollIntoView({ behavior: "smooth", block: "start" });
     }
     setTimeout(() => {
-      const inputEl = document.getElementById("form-application");
+      const inputEl = document.getElementById("form-collector");
       if (inputEl) {
         inputEl.focus();
         inputEl.classList.add("!border-primary-blue", "ring-4", "ring-primary-blue/30");
@@ -883,22 +883,13 @@ export default function NapcenLandingPage() {
                       type="button"
                       onClick={(e) => {
                         e.preventDefault();
-                        const appMapping: Record<string, string> = {
-                          "Welding fume extractor": "Welding / fabrication",
-                          "Laser fume extractor": "Laser cutting / marking",
-                          "Soldering fume extractor": "Soldering / electronics",
-                          "Laboratory fume extractor": "Laboratory / chemical work",
-                          "Gold fume extractor": "Gold processing",
-                          "Printing fume extractor": "Printing",
-                        };
-                        const selectedApp = appMapping[item.title] || item.title;
-                        setFormData((prev) => ({ ...prev, application: selectedApp, collector: item.title }));
+                        setFormData((prev) => ({ ...prev, collector: item.title }));
                         const formEl = document.getElementById("contact");
                         if (formEl) {
                           formEl.scrollIntoView({ behavior: "smooth", block: "start" });
                         }
                         setTimeout(() => {
-                          const inputEl = document.getElementById("form-application");
+                          const inputEl = document.getElementById("form-collector");
                           if (inputEl) {
                             inputEl.focus();
                             inputEl.classList.add("!border-primary-blue", "ring-4", "ring-primary-blue/30");

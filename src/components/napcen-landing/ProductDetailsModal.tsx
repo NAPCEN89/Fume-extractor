@@ -224,7 +224,7 @@ interface ProductDetailsModalProps {
   product: ProductDetailItem | null;
   isOpen: boolean;
   onClose: () => void;
-  onDiscussApplication: (productTitle: string, appName: string) => void;
+  onDiscussApplication: (productTitle: string) => void;
 }
 
 export default function ProductDetailsModal({
@@ -551,16 +551,7 @@ export default function ProductDetailsModal({
               <button
                 type="button"
                 onClick={() => {
-                  const appMapping: Record<string, string> = {
-                    "Welding fume extractor": "Welding / fabrication",
-                    "Laser fume extractor": "Laser cutting / marking",
-                    "Soldering fume extractor": "Soldering / electronics",
-                    "Laboratory fume extractor": "Laboratory / chemical work",
-                    "Gold fume extractor": "Gold processing",
-                    "Printing fume extractor": "Printing",
-                  };
-                  const selectedApp = appMapping[product.title] || product.title;
-                  onDiscussApplication(product.title, selectedApp);
+                  onDiscussApplication(product.title);
                   onClose();
                 }}
                 className="px-5 py-2.5 rounded-xl bg-[#0a5cbb] hover:bg-blue-800 text-white font-black text-xs sm:text-sm transition-all shadow-md flex items-center gap-2 cursor-pointer"
