@@ -777,7 +777,7 @@ export default function NapcenLandingPage() {
                   id: "04",
                   category: "RESEARCH · TESTING · CHEMICAL HANDLING",
                   title: "Laboratory fume extractor",
-                  image: "/Laboratory fume extractor.png",
+                  image: "/Industrial Blue Control Cabinet Cutout.png",
                   url: "https://napcen.com/laboratory-fume-extractor-dust-collector-manufacturers-in-india.html",
                   desc: "Select local extraction around the substances used, their concentrations and the laboratory workflow. Vapour duties need chemistry-specific treatment.",
                   bullets: [
@@ -803,7 +803,7 @@ export default function NapcenLandingPage() {
                   id: "06",
                   category: "SCREEN · OFFSET · FLEXOGRAPHIC PRINTING",
                   title: "Printing fume extractor",
-                  image: "/Printing fume extractor.png",
+                  image: "/Blue Industrial Filtration Cabinet with Controls.png",
                   url: "https://napcen.com/printing-fume-extractor-air-pollution-control-equipment-in-pondicherry.html",
                   desc: "Capture emissions around printing and associated handling processes. Solvent identity and vapour loading guide adsorption or other treatment selection.",
                   bullets: [
