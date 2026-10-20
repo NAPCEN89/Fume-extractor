@@ -12,6 +12,7 @@ import FilterCalculator from "@/components/napcen-landing/FilterCalculator";
 import ProjectsManufacturingSection from "@/components/napcen-landing/ProjectsManufacturingSection";
 import WhyNapcenSection from "@/components/napcen-landing/WhyNapcenSection";
 import CurvedHeader from "@/components/ui/curved-menu";
+import ProductDetailsModal, { ProductDetailItem } from "@/components/napcen-landing/ProductDetailsModal";
 
 // --- ANIMATION VARIANTS ---
 const fadeInUp: Variants = {
@@ -81,6 +82,31 @@ export default function NapcenLandingPage() {
   const [formStep, setFormStep] = useState(1);
   const [productFilter, setProductFilter] = useState("All equipment");
   const [exhaustTab, setExhaustTab] = useState(0);
+  const [selectedProductDetails, setSelectedProductDetails] = useState<ProductDetailItem | null>(null);
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+
+  const handleOpenProductDetails = (item: ProductDetailItem) => {
+    setSelectedProductDetails(item);
+    setIsProductModalOpen(true);
+  };
+
+  const handleDiscussFromDetails = (productTitle: string, appName: string) => {
+    setFormData((prev) => ({ ...prev, application: appName, collector: productTitle }));
+    const formEl = document.getElementById("contact");
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    setTimeout(() => {
+      const inputEl = document.getElementById("form-application");
+      if (inputEl) {
+        inputEl.focus();
+        inputEl.classList.add("!border-primary-blue", "ring-4", "ring-primary-blue/30");
+        setTimeout(() => {
+          inputEl.classList.remove("ring-4", "ring-primary-blue/30");
+        }, 2000);
+      }
+    }, 350);
+  };
 
   const exhaustTabs = [
     {
@@ -388,10 +414,10 @@ export default function NapcenLandingPage() {
                             "Custom / Application review",
                             "Other / Not sure"
                           ].includes(formData.application) && (
-                            <option value={formData.application} className="text-slate-700">
-                              {formData.application}
-                            </option>
-                          )}
+                              <option value={formData.application} className="text-slate-700">
+                                {formData.application}
+                              </option>
+                            )}
                         </select>
                       </div>
                       <div className="flex flex-col gap-2">
@@ -585,7 +611,7 @@ export default function NapcenLandingPage() {
 
                 <div>
                   <a
-                    href="#collectors"
+                    href="#how-it-works"
                     className="inline-flex items-center gap-2 text-sm sm:text-[15px] font-bold text-[#0f1b3a] hover:text-primary-blue pb-1 border-b-2 border-primary-blue transition-colors group cursor-pointer"
                   >
                     <span>Understand the extraction process</span>
@@ -605,9 +631,9 @@ export default function NapcenLandingPage() {
                 {/* Main Machine Image - No border, No shadow */}
                 <div className="relative z-10 w-full flex items-center justify-center p-0 m-0 border-0 shadow-none">
                   <Image
-                    src="/Industrial Fume Extraction System.png"
+                    src="/Industrial Mobile Fume Extractor Unit.png"
                     alt="Industrial Fume Extraction System"
-                    width={1580}
+                    width={1480}
                     height={995}
                     className="w-full h-auto object-contain select-none border-0 shadow-none rounded-none"
                     priority
@@ -709,9 +735,11 @@ export default function NapcenLandingPage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggerContainer} className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 xl:gap-8">
               {[
                 {
+                  id: "01",
                   category: "METAL FABRICATION · WELDING BAYS",
                   title: "Welding fume extractor",
                   image: "/Welding fume extractor.png",
+                  url: "https://napcen.com/welding-fume-extractor-industrial-dust-collector-manuafactures-in-india.html",
                   desc: "Capture welding smoke closer to the arc. Plan the hood position around the welding process, component size and operator movement.",
                   bullets: [
                     "Metal particulate loading",
@@ -720,9 +748,11 @@ export default function NapcenLandingPage() {
                   ]
                 },
                 {
+                  id: "02",
                   category: "LASER CUTTING · MARKING · ENGRAVING",
                   title: "Laser fume extractor",
                   image: "/Laser Fume Extractor.png",
+                  url: "https://napcen.com/Laser-Fume-Extractor-manufacturers-in-chennai.html",
                   desc: "Collect fine particles and process smoke at the laser enclosure. Material composition determines the filtration and discharge arrangement.",
                   bullets: [
                     "Enclosure extraction",
@@ -731,9 +761,11 @@ export default function NapcenLandingPage() {
                   ]
                 },
                 {
+                  id: "03",
                   category: "ELECTRONICS · PCB ASSEMBLY",
                   title: "Soldering fume extractor",
                   image: "/Soldering fume Extractor.png",
+                  url: "https://napcen.com/soldering-fume-extractor-industrial-dust-collector-in-pondicherry.html",
                   desc: "Bring extraction to the soldering point to collect flux smoke before it spreads across the bench. Match each capture point to the working area.",
                   bullets: [
                     "Bench-level capture",
@@ -742,9 +774,11 @@ export default function NapcenLandingPage() {
                   ]
                 },
                 {
+                  id: "04",
                   category: "RESEARCH · TESTING · CHEMICAL HANDLING",
                   title: "Laboratory fume extractor",
-                  image: "/Blue Industrial Filtration Cabinet with Controls.png",
+                  image: "/Laboratory fume extractor.png",
+                  url: "https://napcen.com/laboratory-fume-extractor-dust-collector-manufacturers-in-india.html",
                   desc: "Select local extraction around the substances used, their concentrations and the laboratory workflow. Vapour duties need chemistry-specific treatment.",
                   bullets: [
                     "Chemical compatibility",
@@ -753,9 +787,11 @@ export default function NapcenLandingPage() {
                   ]
                 },
                 {
+                  id: "05",
                   category: "JEWELLERY · MELTING · REFINING",
                   title: "Gold fume extractor",
                   image: "/Gold fume extractor.png",
+                  url: "https://napcen.com/gold-fume-extractor-dust-collector-manufacturers-in-india.html",
                   desc: "Evaluate extraction for gold-processing operations by identifying metal fumes, fine particles and any acid vapours separately. Each requires a suitable treatment route.",
                   bullets: [
                     "Process-specific capture",
@@ -764,9 +800,11 @@ export default function NapcenLandingPage() {
                   ]
                 },
                 {
+                  id: "06",
                   category: "SCREEN · OFFSET · FLEXOGRAPHIC PRINTING",
                   title: "Printing fume extractor",
-                  image: "/Industrial Blue Control Cabinet Cutout.png",
+                  image: "/Printing fume extractor.png",
+                  url: "https://napcen.com/printing-fume-extractor-air-pollution-control-equipment-in-pondicherry.html",
                   desc: "Capture emissions around printing and associated handling processes. Solvent identity and vapour loading guide adsorption or other treatment selection.",
                   bullets: [
                     "Ink and solvent data",
@@ -782,8 +820,13 @@ export default function NapcenLandingPage() {
                   transition={{ duration: 0.25 }}
                   className="relative p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-[0_4px_25px_rgba(15,27,58,0.03)] hover:shadow-[0_16px_40px_rgba(15,27,58,0.08)] hover:border-blue-200 transition-all flex flex-col h-full group"
                 >
-                  {/* Product Image Area */}
-                  <div className="relative w-full h-52 sm:h-60 mb-5 flex items-center justify-center p-4 overflow-hidden group-hover:border-blue-200/80 transition-colors">
+                  {/* Product Image Area with Light Gray Background & Index */}
+                  <div className="relative w-full h-52 sm:h-60 mb-5 flex items-center justify-center p-4 rounded-2xl bg-[#eef1f4] border border-slate-200/60 overflow-hidden group-hover:border-blue-200/80 transition-colors">
+                    {/* Index Number */}
+                    <span className="absolute top-3 left-4 text-xs font-semibold text-slate-400 select-none">
+                      {item.id}
+                    </span>
+
                     <img
                       src={item.image}
                       alt={item.title}
@@ -794,6 +837,12 @@ export default function NapcenLandingPage() {
                         if (fallback) fallback.style.display = "flex";
                       }}
                     />
+
+                    {/* Bottom-right Napcen Brand Watermark */}
+                    <div className="absolute bottom-3 right-3 pointer-events-none select-none">
+                      <img src="/Napcen-logo.webp" alt="Napcen" className="h-3.5 w-auto opacity-70" />
+                    </div>
+
                     <div className="img-placeholder hidden flex-col items-center justify-center text-center p-4">
                       <div className="w-12 h-12 rounded-2xl bg-white shadow-sm border border-slate-200/80 text-primary-blue flex items-center justify-center mb-2">
                         <Wind className="w-6 h-6" />
@@ -828,7 +877,7 @@ export default function NapcenLandingPage() {
                     ))}
                   </ul>
 
-                  {/* Divider line & Bottom Link */}
+                  {/* Divider line & Bottom Links */}
                   <div className="mt-auto pt-4 border-t border-slate-200/80 flex items-center justify-between">
                     <button
                       type="button"
@@ -843,7 +892,7 @@ export default function NapcenLandingPage() {
                           "Printing fume extractor": "Printing",
                         };
                         const selectedApp = appMapping[item.title] || item.title;
-                        setFormData((prev) => ({ ...prev, application: selectedApp }));
+                        setFormData((prev) => ({ ...prev, application: selectedApp, collector: item.title }));
                         const formEl = document.getElementById("contact");
                         if (formEl) {
                           formEl.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -864,6 +913,15 @@ export default function NapcenLandingPage() {
                       <span>Discuss this application</span>
                       <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                     </button>
+
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-slate-600 hover:text-primary-blue text-[13px] font-semibold underline underline-offset-4 decoration-slate-300 hover:decoration-primary-blue transition-colors cursor-pointer"
+                    >
+                      Product details
+                    </a>
                   </div>
                 </motion.div>
               ))}
@@ -1822,6 +1880,14 @@ export default function NapcenLandingPage() {
             </div>
           </div>
         </Footer>
+
+        {/* Global Product Details Modal */}
+        <ProductDetailsModal
+          isOpen={isProductModalOpen}
+          product={selectedProductDetails}
+          onClose={() => setIsProductModalOpen(false)}
+          onDiscussApplication={handleDiscussFromDetails}
+        />
       </main>
     </div>
   );
